@@ -1,0 +1,191 @@
+-- Stored Procedure untuk menambah data dosen
+DELIMITER $$
+
+CREATE PROCEDURE TambahDosen (
+    IN NipDosen VARCHAR(20),
+    IN NamaDosen VARCHAR(100)
+)
+BEGIN
+    INSERT INTO Dosen (NIP, Nama_Dosen)
+    VALUES (NipDosen, NamaDosen);
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk menambah data mahasiswa
+DELIMITER $$
+
+CREATE PROCEDURE TambahMahasiswa (
+    IN NimMhs VARCHAR(9),
+    IN NamaMhs VARCHAR(25),
+    IN TanggalLahir DATE,
+    IN AlamatMhs VARCHAR(50),
+    IN Gender VARCHAR(10),
+    IN NilaiIPK DECIMAL(10, 2)
+)
+BEGIN
+    INSERT INTO Mahasiswa (Nim, Nama_Mhs, Tgl_Lahir, Alamat, Jenis_Kelamin, IPK)
+    VALUES (NimMhs, NamaMhs, TanggalLahir, AlamatMhs, Gender, NilaiIPK);
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk menambah data mata kuliah
+DELIMITER $$
+
+CREATE PROCEDURE TambahMatkul (
+    IN KodeMK VARCHAR(10),
+    IN NamaMK VARCHAR(50),
+    IN JumlahSks INT
+)
+BEGIN
+    INSERT INTO MataKuliah (Kode_MK, Nama_MK, Sks)
+    VALUES (KodeMK, NamaMK, JumlahSks);
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk menambah data perkuliahan
+DELIMITER $$
+
+CREATE PROCEDURE TambahPerkuliahan (
+    IN NimMahasiswa VARCHAR(9),
+    IN KodeMataKuliah VARCHAR(10),
+    IN NipDosen VARCHAR(20),
+    IN JumlahKehadiran INT,
+    IN NilaiBobot DECIMAL(5, 2),
+    IN NilaiAngka DECIMAL(5, 2),
+    IN PoinTotal DECIMAL(5, 2)
+)
+BEGIN
+    INSERT INTO Perkuliahan (Nim, Kode_MK, NIP, Kehadiran, Nilai_Bobot, Nilai_Angka, Poin)
+    VALUES (NimMahasiswa, KodeMataKuliah, NipDosen, JumlahKehadiran, NilaiBobot, NilaiAngka, PoinTotal);
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk mengambil data dosen
+DELIMITER $$
+
+CREATE PROCEDURE CariDosen (
+    IN NipDosen VARCHAR(20)
+)
+BEGIN
+    SELECT * FROM Dosen WHERE NIP = NipDosen;
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk mengambil data mahasiswa
+DELIMITER $$
+
+CREATE PROCEDURE CariMahasiswa (
+    IN NimMhs VARCHAR(9)
+)
+BEGIN
+    SELECT * FROM Mahasiswa WHERE Nim = NimMhs;
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk mengambil data mata kuliah
+DELIMITER $$
+
+CREATE PROCEDURE CariMatkul (
+    IN KodeMK VARCHAR(10)
+)
+BEGIN
+    SELECT * FROM MataKuliah WHERE Kode_MK = KodeMK;
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk memperbarui data dosen
+DELIMITER $$
+
+CREATE PROCEDURE UpdateDosen (
+    IN NipDosen VARCHAR(20),
+    IN NamaBaru VARCHAR(100)
+)
+BEGIN
+    UPDATE Dosen
+    SET Nama_Dosen = NamaBaru
+    WHERE NIP = NipDosen;
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk memperbarui data mahasiswa
+DELIMITER $$
+
+CREATE PROCEDURE UpdateMahasiswa (
+    IN NimMhs VARCHAR(9),
+    IN NamaBaru VARCHAR(25),
+    IN TanggalLahirBaru DATE,
+    IN AlamatBaru VARCHAR(50),
+    IN GenderBaru VARCHAR(10),
+    IN IPKBaru DECIMAL(10, 2)
+)
+BEGIN
+    UPDATE Mahasiswa
+    SET Nama_Mhs = NamaBaru,
+        Tgl_Lahir = TanggalLahirBaru,
+        Alamat = AlamatBaru,
+        Jenis_Kelamin = GenderBaru,
+        IPK = IPKBaru
+    WHERE Nim = NimMhs;
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk memperbarui data mata kuliah
+DELIMITER $$
+
+CREATE PROCEDURE UpdateMatkul (
+    IN KodeMK VARCHAR(10),
+    IN NamaBaruMK VARCHAR(50),
+    IN SKSBaru INT
+)
+BEGIN
+    UPDATE MataKuliah
+    SET Nama_MK = NamaBaruMK, Sks = SKSBaru
+    WHERE Kode_MK = KodeMK;
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk menghapus data dosen
+DELIMITER $$
+
+CREATE PROCEDURE HapusDosen (
+    IN NipDosen VARCHAR(20)
+)
+BEGIN
+    DELETE FROM Dosen WHERE NIP = NipDosen;
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk menghapus data mahasiswa
+DELIMITER $$
+
+CREATE PROCEDURE HapusMahasiswa (
+    IN NimMhs VARCHAR(9)
+)
+BEGIN
+    DELETE FROM Mahasiswa WHERE Nim = NimMhs;
+END $$
+
+DELIMITER ;
+
+-- Stored Procedure untuk menghapus data mata kuliah
+DELIMITER $$
+
+CREATE PROCEDURE HapusMatkul (
+    IN KodeMK VARCHAR(10)
+)
+BEGIN
+    DELETE FROM MataKuliah WHERE Kode_MK = KodeMK;
+END $$
+
+DELIMITER ;
